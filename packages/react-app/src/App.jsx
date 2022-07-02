@@ -164,6 +164,13 @@ const web3Modal = new Web3Modal({
 });
 
 function App(props) {
+
+    // ** keep track of a variable from the contract in the local React state:
+    const claimPeriodLeft = useContractReader(readContracts, "Staker", "claimPeriodLeft");
+    console.log("⏳ Claim Period Left:", claimPeriodLeft);
+  
+    const withdrawalTimeLeft = useContractReader(readContracts, "Staker", "withdrawalTimeLeft");
+    console.log("⏳ Withdrawal Time Left:", withdrawalTimeLeft);
   const mainnetProvider =
     poktMainnetProvider && poktMainnetProvider._isProvider
       ? poktMainnetProvider
@@ -577,7 +584,7 @@ function App(props) {
                 renderItem={item => {
                   return (
                     <List.Item key={item.blockNumber}>
-                      <Address value={item.args[0]} ensProvider={mainnetProvider} fontSize={16} /> =>
+                      <Address value={item.args[0]} ensProvider={mainnetProvider} fontSize={16} />
                       <Balance balance={item.args[1]} />
                     </List.Item>
                   );
